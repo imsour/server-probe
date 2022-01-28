@@ -1,0 +1,24 @@
+.App {
+    text-align: center;
+    background-color: #282c34;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.Header {
+    font-size: calc(10px + 2vmin);
+    color: white;
+}
+
+.Subtext {
+    font-size: calc(9px + 1vmin);
+    color: white;
+}
+
+.Chart {
+    min-height: 40vh;
+    min-width: 50vw;
+    background-color: #7f8eaa;
+}

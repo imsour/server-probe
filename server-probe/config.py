@@ -1,0 +1,22 @@
+import os
+
+from dotenv import load_dotenv
+
+load_dotenv()
+
+SQLALCHEMY_DATABASE_URL = "SQLALCHEMY_DATABASE_URL"
+PROBE_INTERVAL = "PROBE_INTERVAL"
+RABBITMQ_USER = "RABBITMQ_USER"
+RABBITMQ_PASS = "RABBITMQ_PASS"
+RABBITMQ_HOST = "RABBITMQ_HOST"
+RABBITMQ_PORT = "RABBITMQ_PORT"
+
+
+class Settings:
+    SQLALCHEMY_DATABASE_URL = os.getenv(SQLALCHEMY_DATABASE_URL)
+    PROBE_INTERVAL = int(os.getenv(PROBE_INTERVAL))
+    RABBITMQ_URL = f'amqp://{os.getenv(RABBITMQ_USER)}:{os.getenv(RABBITMQ_PASS)}@{os.getenv(RABBITMQ_HOST)}:{os.getenv(RABBITMQ_PORT)}//',
+
+
+settings = Settings()
+print(settings.SQLALCHEMY_DATABASE_URL)

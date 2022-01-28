@@ -1,0 +1,29 @@
+
+
+Hi,
+
+You need to create an application that tests and records the response times of a list of common websites (“google.com”, “facebook.com”, “twitter.com”,  “cnet.com”, “amazon.com”).
+
+The backend should execute the HTTP requests to the websites, saving the results to a DB/File/Memory and exposing the results in a REST API endpoint. The data needs to be updated and reflected in the graph periodically.
+
+The frontend should show a linear graph with the response times overtime for each of the websites, with start tests and stop tests buttons.
+
+The data should be saved and available when closing the browser and reopening the app (thus avoiding an empty graph).
+
+ 
+
+Any selection of backend technology or framework is OK.
+
+The frontend should be implemented as a Single Page ReactJS Application.
+
+Usage of any external library is allowed.
+
+ 
+
+The program should be submitted by a ZIP file containing all needed files for execution, and instructions on how to run them.
+
+If any questions arise, let us know.
+
+Good luck!
+
+

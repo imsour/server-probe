@@ -1,0 +1,68 @@
+version: "3"
+services:
+  rabbitmq:
+    ports:
+      - "15672:15672"
+    networks:
+      - probe_dispatch
+      - probe_queue
+
+  probe-ui:
+    container_name: probe-ui
+    env_file:
+      - probe-ui/.docker/.docker.env
+    build:
+      context: probe-ui
+      dockerfile: .docker/Dockerfile
+    stdin_open: true
+    ports:
+      - "3000:3000"
+    restart: always
+    command: npm start
+    depends_on:
+      - server-probe
+    networks:
+      - probe_api
+
+  server-probe:
+    container_name: server-probe
+    env_file:
+      - server-probe/.docker/.docker.env
+    build:
+      context: server-probe
+      dockerfile: .docker/Dockerfile
+    ports:
+      - "8000:80"
+    restart: always
+    command: uvicorn main:app --host 0.0.0.0 --port 80
+    depends_on:
+      - rabbitmq
+    networks:
+      - probe_dispatch
+      - probe_api
+    volumes:
+      - probe-db:/etc/probe
+
+  worker:
+    env_file:
+      - server-probe/.docker/.docker.env
+    build:
+      context: server-probe
+      dockerfile: .docker/Dockerfile
+    restart: always
+    command: celery -A celery_worker worker -l info
+    networks:
+      - probe_queue
+    depends_on:
+      - rabbitmq
+    volumes:
+      - probe-db:/etc/probe
+
+networks:
+  probe_dispatch:
+  probe_queue:
+  probe_api:
+
+volumes:
+  probe-db:
+    driver: local
